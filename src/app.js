@@ -1,9 +1,11 @@
 const express = require('express');
 const app = express()
 require('./db/mongoose')
-const port = process.env.PORT || 5000
+const userRouter = require('./routers/user')
+const port = process.env.PORT
 
 app.use(express.json());
+app.use(userRouter)
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
