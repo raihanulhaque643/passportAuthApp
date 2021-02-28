@@ -5,15 +5,18 @@ const passport = require('passport');
 
 router.post(
     '/signup',
-    passport.authenticate('signup', { session: false }),
-    async (err, req, res, next) => {
-        if (err) {
-          return res.send(err)
-        }
+    passport.authenticate('signup', { session: false, failWithError: true }),
+    async (req, res, next) => {
         res.json({
           message: 'Signup successful',
           user: req.user
         });
+    },
+    async (error, req, res, next) => {
+        res.json({
+          message: 'Signup failed',
+          error: error.errors
+        })
     }
   );
 
