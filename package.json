@@ -17,6 +17,9 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.4",
     "mongoose": "^5.11.18",
+    "mongoose-beautiful-unique-validation": "^7.1.1",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
     "validator": "^13.5.2"
   },
   "devDependencies": {

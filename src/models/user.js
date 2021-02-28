@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const beautifyUnique = require('mongoose-beautiful-unique-validation')
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -36,6 +37,13 @@ const userSchema = new mongoose.Schema({
     timestamps: true
 })
 
+userSchema.methods.isValidPassword = async function(password) {
+    const user = this;
+    const compare = await bcrypt.compare(password, user.password);
+  
+    return compare;
+  }
+
 userSchema.methods.generateAuthToken = async function () {
     const user = this;
     const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET);
@@ -66,6 +74,8 @@ userSchema.pre('save', async function (next) {
     next();
 
 })
+
+userSchema.plugin(beautifyUnique); 
 
 const User = mongoose.model('User', userSchema)
 

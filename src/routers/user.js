@@ -1,17 +1,20 @@
 const express = require('express');
 const router = new express.Router();
 const User = require('../models/user');
+const passport = require('passport');
 
-// register new users to database
-router.post('/signup', async (req, res) => {
-    const user = new User(req.body);
-    try {
-        await user.save();
-        const token = await user.generateAuthToken();
-        res.status(201).send({ user, token });
-    } catch (e) {
-        res.status(400).send({error: e.message});
+router.post(
+    '/signup',
+    passport.authenticate('signup', { session: false }),
+    async (err, req, res, next) => {
+        if (err) {
+          return res.send(err)
+        }
+        res.json({
+          message: 'Signup successful',
+          user: req.user
+        });
     }
-})
+  );
 
 module.exports = router
