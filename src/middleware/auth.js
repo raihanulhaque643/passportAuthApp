@@ -2,6 +2,7 @@ const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const UserModel = require('../models/user');
 
+// Register using passport
 passport.use(
     'signup',
     new localStrategy(
@@ -21,6 +22,7 @@ passport.use(
     )
   );
 
+// Signin using passport
   passport.use(
     'login',
     new localStrategy(

@@ -75,6 +75,7 @@ userSchema.pre('save', async function (next) {
 
 })
 
+// Interpret mognoose errors
 userSchema.plugin(beautifyUnique); 
 
 const User = mongoose.model('User', userSchema)

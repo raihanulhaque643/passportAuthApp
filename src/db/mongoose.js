@@ -5,6 +5,7 @@ const connectionParams={
     useCreateIndex: true,
     useUnifiedTopology: true 
 }
+// Connect to db
 mongoose.connect(process.env.MONGODB_URL,connectionParams)
     .then( () => {
         console.log('Connected to database ')
